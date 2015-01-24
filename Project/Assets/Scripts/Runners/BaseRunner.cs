@@ -51,6 +51,10 @@ public class BaseRunner : MonoBehaviour
 		case State.e_Carcass:
 			DoCarcass();
 			break;
+
+		case State.e_Eating:
+			UpdateVirtual ();
+			break;
 		}
 	}
 
@@ -67,7 +71,7 @@ public class BaseRunner : MonoBehaviour
 		{
 			BaseRunner otherRunner = otherCollider.GetComponent<BaseRunner>();
 
-			if(otherRunner != null)
+			if(otherRunner != null && otherRunner != this)
 			{
 				HandleCollision(otherRunner);
 			}
@@ -94,6 +98,11 @@ public class BaseRunner : MonoBehaviour
 
 	}
 
+	public void SetToCarcass()
+	{
+		m_CurrentState = State.e_Carcass;
+	}
+
 	public void Trip()
 	{
 		m_CurrentState = State.e_Tripped;
@@ -101,15 +110,17 @@ public class BaseRunner : MonoBehaviour
 
 	public void Eat()
 	{
-		m_CurrentState = State.e_Carcass;
+		SetToCarcass ();
+
+		// Add sound and stuff and particles
 	}
 
-	protected void StartEating()
+	public void StartEating()
 	{
 		m_CurrentState = State.e_Eating;
 	}
 
-	protected void StopEating()
+	public void StopEating()
 	{
 		m_CurrentState = State.e_Running;
 	}

@@ -39,8 +39,7 @@ public class People : BaseRunner
 
 	protected override void HandleCollision (BaseRunner otherRunner)
 	{
-		if(!m_IsJumping && (otherRunner.CurrentState == BaseRunner.State.e_Tripped
-		   || otherRunner.CurrentState == BaseRunner.State.e_Carcass))
+		if(!m_IsJumping && otherRunner.CurrentState == BaseRunner.State.e_Carcass)
 		{
 			Trip();
 		}

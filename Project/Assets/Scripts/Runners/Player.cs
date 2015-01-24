@@ -26,7 +26,7 @@ public class Player : People
 			{
 				People otherPeople = otherCollider.GetComponent<People>();
 
-				if(otherPeople != null)
+				if(otherPeople != null && otherPeople != this)
 				{
 					Punch(otherPeople);
 				}
@@ -41,5 +41,7 @@ public class Player : People
 		{
 			m_JumpTimer = m_JumpTime;
 		}
+
+		m_Speed -= m_DecelerationRate * Time.deltaTime;
 	}
 }

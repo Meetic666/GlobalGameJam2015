@@ -46,11 +46,16 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\GameManager\GameData.cs" />
+     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GameManager\LionPack.cs" />
      <Compile Include="Assets\Scripts\Runners\BaseRunner.cs" />
      <Compile Include="Assets\Scripts\Runners\Ex.cs" />
      <Compile Include="Assets\Scripts\Runners\Lion.cs" />
      <Compile Include="Assets\Scripts\Runners\People.cs" />
      <Compile Include="Assets\Scripts\Runners\Player.cs" />
+     <Compile Include="Assets\Scripts\Runners\RunnersManager.cs" />
+     <Compile Include="Assets\Scripts\TestScript.cs" />
      <None Include="Assets\Materials\New Text Document.txt" />
      <None Include="Assets\Scripts\New Text Document.txt" />
      <None Include="Assets\Prefabs\New Text Document.txt" />
