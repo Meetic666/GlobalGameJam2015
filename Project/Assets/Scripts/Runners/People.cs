@@ -71,7 +71,7 @@ public class People : BaseRunner
 			}
 		}
 
-		if(m_LionPack != null)
+		if(m_LionPack != null && tag != "Player")
 		{
 			foreach(Lion lion in m_LionPack.Lions)
 			{

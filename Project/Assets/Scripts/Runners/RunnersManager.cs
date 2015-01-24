@@ -22,8 +22,11 @@ public class RunnersManager : MonoBehaviour
 			}
 		}
 
-		transform.position -= transform.forward * currentSpeed * Time.deltaTime;
+		if(currentSpeed != 0.0f)
+		{
+			transform.position -= transform.forward * currentSpeed * Time.deltaTime;
 
-		m_Background.material.mainTextureOffset += new Vector2 (0.0f, currentSpeed * m_SpeedTextureOffsetRatio * Time.deltaTime);
+			m_Background.material.mainTextureOffset += new Vector2 (0.0f, currentSpeed * m_SpeedTextureOffsetRatio * Time.deltaTime);
+		}
 	}
 }
