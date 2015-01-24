@@ -81,7 +81,7 @@ public class PlayerConfirmation : MonoBehaviour
 				text = "Waiting for players \n" + backMethod + " to leave lobby";
 			}
 
-			GUI.TextArea (textArea, text);
+			GUI.TextField (textArea, text);
 		}
 	}
 }

@@ -60,7 +60,7 @@ public class Summary : MonoBehaviour
 				textArea.width = m_DickishnessTextAreaPercentages[i].width * camera.pixelWidth;
 				textArea.height = m_DickishnessTextAreaPercentages[i].height * camera.pixelHeight;
 
-				GUI.TextArea (textArea, m_CommentToUse[i]);
+				GUI.TextField (textArea, m_CommentToUse[i]);
 			}
 		}
 	}
