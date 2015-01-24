@@ -36,6 +36,12 @@ public class People : BaseRunner
 			else
 			{				
 				m_PunchTimer = m_PunchDelay * (1.0f - GameData.Instance.DickPercentage);
+
+				if(m_PunchTimer <= 0.0f)
+				{
+					Punch (m_Player);
+				}
+
 			}
 		}
 

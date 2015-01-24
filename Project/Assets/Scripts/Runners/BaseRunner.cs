@@ -27,7 +27,7 @@ public class BaseRunner : MonoBehaviour
 
 	public GameObject m_BloodParticles;
 
-	bool m_SetToCarcass;
+	bool m_SetToCarcass = false;
 
 	public State CurrentState
 	{
@@ -143,7 +143,7 @@ public class BaseRunner : MonoBehaviour
 
 	}
 
-	void DoCarcass()
+	protected virtual void DoCarcass()
 	{
 
 	}

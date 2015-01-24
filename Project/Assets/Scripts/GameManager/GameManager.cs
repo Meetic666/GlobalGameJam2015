@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
 				m_EnemySpawnTimer = m_EnemySpawnTime;
 			}
 		}
+
+		GameData.Instance.Update ();
 	}
 
 	void SpawnItem()

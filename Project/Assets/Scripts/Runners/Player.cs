@@ -15,6 +15,8 @@ public class Player : People
 	bool m_ResetStartScale;
 	float m_ScaleSpeed;
 
+	public float m_DeathTime = 2.0f;
+
 	protected override void UpdateVirtual ()
 	{
 		base.UpdateVirtual ();
@@ -93,5 +95,17 @@ public class Player : People
 		m_Speed += drink.m_SpeedBoost;
 
 		Destroy (drink.gameObject);
+	}
+
+	protected override void DoCarcass ()
+	{
+		transform.localScale = m_StartScale;
+		
+		m_DeathTime -= Time.deltaTime;
+		
+		if(m_DeathTime <= 0.0f)
+		{
+			Application.LoadLevel("Summary");
+		}
 	}
 }
