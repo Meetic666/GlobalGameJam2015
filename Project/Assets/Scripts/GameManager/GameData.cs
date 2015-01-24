@@ -109,6 +109,16 @@ public class GameData
 		}
 	}
 
+	List<int> m_NumberOfButtonMashes = new List<int>(4);
+
+	public List<int> NumberOfButtonMashes
+	{
+		get
+		{
+			return m_NumberOfButtonMashes;
+		}
+	}
+
 	private GameData()
 	{
 		for(int i = 0; i < 4; i++)
@@ -118,6 +128,7 @@ public class GameData
 			m_DeathTolls.Add(0);
 			m_PlayersJoined.Add (false);
 			m_PlayersConfirmed.Add (false);
+			m_NumberOfButtonMashes.Add (0);
 		}
 	}
 
@@ -167,5 +178,10 @@ public class GameData
 		{
 			m_PlayersConfirmed[i] = false;
 		}
+	}
+
+	public void AddButtonMash(int playerNumber)
+	{
+		m_NumberOfButtonMashes [playerNumber - 1]++;
 	}
 }

@@ -32,8 +32,9 @@ public class Summary : MonoBehaviour
 			}
 
 			m_CommentToUse.Add ("You've survived " + GameData.Instance.Scores[i]  + " seconds.\nYou've killed "
-				+ GameData.Instance.DeathTolls[i] + " people.\n" + commentUsed + "\n\n" + (int)(Random.value * 100) + "% of the players killed more people than you.\n"
-					+ (int)(Random.value * 100) + "% of the players survived longer than you.\n");
+				+ GameData.Instance.DeathTolls[i] + " people.\nYou've button mashed " + GameData.Instance.NumberOfButtonMashes[i] + " times.\n\n" + commentUsed + "\n\n" + (int)(Random.value * 100) + "% of the players killed more people than you.\n"
+					+ (int)(Random.value * 100) + "% of the players survived longer than you.\n"
+			                    + (int)(Random.value * 100) + "% of the players mashed more than you.\n");
 		}
 	}
 

@@ -103,22 +103,11 @@ public class Player : People
 
 		GameData.Instance.UpdateScore (Time.deltaTime, m_PlayerNumber);
 
-		bool canBoost = false;
-
-		if(m_LionPack != null)
-		{
-			foreach(Lion lion in m_LionPack.Lions)
-			{
-				if(transform.position.z < lion.transform.position.z + m_LimitZThreshold)
-				{
-					canBoost =true;
-				}
-			}
-		}
-
-		if(canBoost && Input.GetButtonDown ("Boost"+m_PlayerNumber))
+		if(Input.GetButtonDown ("Boost"+m_PlayerNumber))
 		{
 			m_Speed += m_LimitZSpeedBoost;
+
+			GameData.Instance.AddButtonMash(m_PlayerNumber);
 		}
 	}
 
