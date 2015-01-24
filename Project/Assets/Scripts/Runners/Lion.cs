@@ -8,6 +8,13 @@ public class Lion : BaseRunner
 
 	LionPack m_LionPack;
 
+	float m_StartX;
+	bool m_ResetStartX;
+
+	float m_MealX;
+
+	public float m_LateralSpeed;
+
 	public LionPack LionPack
 	{
 		set
@@ -18,9 +25,20 @@ public class Lion : BaseRunner
 
 	protected override void UpdateVirtual ()
 	{
+		if(!m_ResetStartX)
+		{
+			m_ResetStartX = true;
+
+			m_StartX = transform.localPosition.x;
+		}
+
+		float targetX = m_StartX;
+
 		if(m_EatTimer > 0.0f)
 		{
 			m_EatTimer -= Time.deltaTime;
+
+			targetX = m_MealX;
 
 			if(m_EatTimer <= 0.0f)
 			{
@@ -29,6 +47,12 @@ public class Lion : BaseRunner
 				m_LionPack.ResumeRunning();
 			}
 		}
+		
+		Vector3 newPosition = transform.localPosition;
+		
+		newPosition.x = Mathf.Lerp(newPosition.x, targetX, m_LateralSpeed * Time.deltaTime);
+		
+		transform.localPosition = newPosition;
 	}
 
 	protected override void HandleCollision (BaseRunner otherRunner)
@@ -39,9 +63,16 @@ public class Lion : BaseRunner
 			StartEating ();
 			otherRunner.Eat ();
 
-			m_LionPack.StopPackForEating();
+			m_LionPack.StopPackForEating(otherRunner);
 
 			m_EatTimer = m_EatDelay;
 		}
+	}
+
+	public void SetMeal(BaseRunner meal)
+	{
+		m_MealX = meal.transform.localPosition.x;
+
+		m_EatTimer = m_EatDelay;
 	}
 }

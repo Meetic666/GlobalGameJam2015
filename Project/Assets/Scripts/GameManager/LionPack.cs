@@ -16,11 +16,13 @@ public class LionPack : MonoBehaviour
 		}
 	}
 	
-	public void StopPackForEating()
+	public void StopPackForEating(BaseRunner meal)
 	{
 		foreach(Lion lion in m_Lions)
 		{
 			lion.StartEating();
+
+			lion.SetMeal (meal);
 		}
 	}
 

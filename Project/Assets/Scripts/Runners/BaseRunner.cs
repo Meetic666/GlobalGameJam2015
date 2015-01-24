@@ -19,6 +19,14 @@ public class BaseRunner : MonoBehaviour
 
 	public float m_CollisionDetectionRadius;
 
+	protected Animator m_Animator;
+	
+	public GameObject m_Normal;
+	public GameObject m_Tripped;
+	public GameObject m_Carcass;
+
+	bool m_SetToCarcass;
+
 	public State CurrentState
 	{
 		get
@@ -27,10 +35,38 @@ public class BaseRunner : MonoBehaviour
 		}
 	}
 
+	public float CurrentSpeed
+	{
+		get
+		{
+			return (m_CurrentState == State.e_Running) ? m_Speed : 0.0f;
+		}
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
-		m_CurrentState = State.e_Running;
+		if(!m_SetToCarcass)
+		{
+			m_CurrentState = State.e_Running;
+
+			m_Animator = GetComponentInChildren<Animator> ();
+
+			if(m_Normal != null)
+			{
+				m_Normal.SetActive (true);
+			}
+
+			if(m_Tripped != null)
+			{
+				m_Tripped.SetActive (false);
+			}
+
+			if(m_Carcass != null)
+			{
+				m_Carcass.SetActive (false);
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -75,10 +111,22 @@ public class BaseRunner : MonoBehaviour
 			{
 				HandleCollision(otherRunner);
 			}
+
+			EnergyDrink energyDrink = otherCollider.GetComponent<EnergyDrink>();
+
+			if(energyDrink != null)
+			{
+				HandleCollision(energyDrink);
+			}
 		}
 	}
 
 	protected virtual void HandleCollision(BaseRunner otherRunner)
+	{
+
+	}
+
+	protected virtual void HandleCollision(EnergyDrink drink)
 	{
 
 	}
@@ -100,12 +148,44 @@ public class BaseRunner : MonoBehaviour
 
 	public void SetToCarcass()
 	{
+		m_SetToCarcass = true;
+
 		m_CurrentState = State.e_Carcass;
+		
+		if(m_Normal != null)
+		{
+			m_Normal.SetActive (false);
+		}
+		
+		if(m_Tripped != null)
+		{
+			m_Tripped.SetActive (false);
+		}
+		
+		if(m_Carcass != null)
+		{
+			m_Carcass.SetActive (true);
+		}
 	}
 
 	public void Trip()
 	{
 		m_CurrentState = State.e_Tripped;
+
+		if(m_Normal != null)
+		{
+			m_Normal.SetActive (false);
+		}
+		
+		if(m_Tripped != null)
+		{
+			m_Tripped.SetActive (true);
+		}
+		
+		if(m_Carcass != null)
+		{
+			m_Carcass.SetActive (false);
+		}
 	}
 
 	public void Eat()

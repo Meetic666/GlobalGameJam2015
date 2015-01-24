@@ -34,9 +34,17 @@ public class GameData
 			Mathf.Clamp01(m_DickPercentage);
 		}
 	}
+	
+	
+	float m_DickBoostForTrippingPeople = 0.1f;
 
 	private GameData()
 	{
 
+	}
+
+	public void TripPeople()
+	{
+		m_DickPercentage += m_DickBoostForTrippingPeople;
 	}
 }

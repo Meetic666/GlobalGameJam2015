@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\GameManager\GameData.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameManager\LionPack.cs" />
+     <Compile Include="Assets\Scripts\PickUps\EnergyDrink.cs" />
      <Compile Include="Assets\Scripts\Runners\BaseRunner.cs" />
      <Compile Include="Assets\Scripts\Runners\Ex.cs" />
      <Compile Include="Assets\Scripts\Runners\Lion.cs" />
