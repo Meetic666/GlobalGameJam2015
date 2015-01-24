@@ -9,6 +9,7 @@ public class Lion : BaseRunner
 	LionPack m_LionPack;
 
 	float m_StartX;
+	float m_StartZ;
 	bool m_ResetStartX;
 
 	float m_MealX;
@@ -30,6 +31,7 @@ public class Lion : BaseRunner
 			m_ResetStartX = true;
 
 			m_StartX = transform.localPosition.x;
+			m_StartZ = transform.position.z;
 		}
 
 		float targetX = m_StartX;
@@ -53,6 +55,16 @@ public class Lion : BaseRunner
 		newPosition.x = Mathf.Lerp(newPosition.x, targetX, m_LateralSpeed * Time.deltaTime);
 		
 		transform.localPosition = newPosition;
+
+		
+		if(transform.position.z < m_StartZ)
+		{
+			newPosition = transform.position;
+
+			newPosition.z = m_StartZ;
+			
+			transform.position = newPosition;
+		}
 	}
 
 	protected override void HandleCollision (BaseRunner otherRunner)

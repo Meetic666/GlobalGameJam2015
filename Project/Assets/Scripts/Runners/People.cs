@@ -17,6 +17,9 @@ public class People : BaseRunner
 
 	int m_PunchDirection;
 
+	public float m_LimitZ;
+	public float m_LimitZSpeedBoost = 20.0f;
+
 	protected override void UpdateVirtual ()
 	{
 		if(m_Player != null && Vector3.Distance (m_Player.transform.position, transform.position) < m_PunchRadius)
@@ -32,7 +35,7 @@ public class People : BaseRunner
 			}
 			else
 			{				
-				m_PunchTimer = m_PunchDelay;
+				m_PunchTimer = m_PunchDelay * (1.0f - GameData.Instance.DickPercentage);
 			}
 		}
 
@@ -53,6 +56,11 @@ public class People : BaseRunner
 			{
 				m_Animator.SetBool("Punching", false);
 			}
+		}
+
+		if(transform.position.z < m_LimitZ)
+		{
+			m_Speed += m_LimitZSpeedBoost;
 		}
 	}
 

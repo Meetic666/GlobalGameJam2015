@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour 
 {
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
 
 	public RunnersManager m_RunnersManager;
 	public Player m_Player;
+
+	int m_MaxNumberOfObstacles = 5;
 
 
 	void Start()
@@ -73,22 +76,32 @@ public class GameManager : MonoBehaviour
 
 	void SpawnItem()
 	{
-		GameObject newObject;
+		List<GameObject> newObjects = new List<GameObject> ();;
 
 		Vector3 position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right;
 
 		if(Random.value <= GameData.Instance.DickPercentage)
 		{
-			newObject = (GameObject)Instantiate(m_PeoplePrefab,position, Quaternion.identity);
+			for(int i = 0; i < m_MaxNumberOfObstacles * GameData.Instance.DickPercentage; i++)
+			{
+				GameObject newObject = (GameObject)Instantiate(m_PeoplePrefab,position, Quaternion.identity);
 
-			newObject.GetComponent<BaseRunner>().SetToCarcass();
+				newObject.GetComponent<BaseRunner>().SetToCarcass();
+
+				newObjects.Add (newObject);
+
+				position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.forward;
+			}
 		}
 		else
 		{
-			newObject = (GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity);
+			newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
 		}
 
-		newObject.transform.parent = m_RunnersManager.transform;
+		foreach(GameObject newObject in newObjects)
+		{
+			newObject.transform.parent = m_RunnersManager.transform;
+		}
 	}
 
 	void SpawnEx()

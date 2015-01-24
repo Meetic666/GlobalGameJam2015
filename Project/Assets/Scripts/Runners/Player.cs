@@ -58,11 +58,21 @@ public class Player : People
 		{
 			m_JumpTimer -= Time.deltaTime;
 
-			targetScale = m_StartScale * m_JumpScaleMultiplier;
+			if(m_JumpTimer > m_JumpTime * 0.5f)
+			{
+				targetScale = m_StartScale * m_JumpScaleMultiplier;
+			}
 		}
-		else if(Input.GetButtonDown ("Jump"))
+		else
 		{
-			m_JumpTimer = m_JumpTime;
+			m_IsJumping = false;
+
+			if(Input.GetButtonDown ("Jump"))
+			{
+				m_JumpTimer = m_JumpTime;
+
+				m_IsJumping = true;
+			}
 		}
 
 		transform.localScale = Vector3.Lerp (transform.localScale, targetScale, m_ScaleSpeed * Time.deltaTime);
