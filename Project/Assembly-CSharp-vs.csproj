@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\GameManager\MainMenu.cs" />
      <Compile Include="Assets\Scripts\GameManager\PlayerConfirmation.cs" />
      <Compile Include="Assets\Scripts\GameManager\Summary.cs" />
+     <Compile Include="Assets\Scripts\Particles\ParticleHelper.cs" />
      <Compile Include="Assets\Scripts\Particles\Particles.cs" />
      <Compile Include="Assets\Scripts\PickUps\EnergyDrink.cs" />
      <Compile Include="Assets\Scripts\Runners\BaseRunner.cs" />

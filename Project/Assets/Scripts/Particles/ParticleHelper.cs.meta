@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 0192a22030aa2574fa0464a82e0de4c4
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Punch: {fileID: 19817816, guid: 82187b0c61237b14290a91cfbbe33e88, type: 2}
+  - Trip: {fileID: 19845260, guid: 4682a35686e07c342a0874617149f430, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

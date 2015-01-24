@@ -22,6 +22,8 @@ public class People : BaseRunner
 	public float m_LimitZSpeedBoost = 20.0f;
 	public LionPack m_LionPack;
 
+	ParticleSystem m_TempParticleHolder;
+
 	protected override void UpdateVirtual ()
 	{
 		foreach(Player player in m_Players)
@@ -85,6 +87,16 @@ public class People : BaseRunner
 	{
 		otherPeople.Trip ();
 
+		m_TempParticleHolder = ParticleHelper.Instance.PunchExplosion (new Vector3 ((otherPeople.transform.position.x + transform.position.x) /2, transform.position.y, transform.position.z));
+		m_TempParticleHolder.transform.parent = transform;
+
+
+
+		m_TempParticleHolder = ParticleHelper.Instance.TrippedSwirl (otherPeople.transform.position);
+		m_TempParticleHolder.transform.parent = otherPeople.transform;
+
+
+
 		m_PunchLengthTimer = m_PunchLength;
 
 		m_PunchDirection = (int)Mathf.Sign (otherPeople.transform.position.x - transform.position.x);
@@ -95,6 +107,8 @@ public class People : BaseRunner
 		if(!m_IsJumping && otherRunner.CurrentState == BaseRunner.State.e_Carcass)
 		{
 			Trip();
+			m_TempParticleHolder = ParticleHelper.Instance.TrippedSwirl (transform.position);
+			m_TempParticleHolder.transform.parent = transform;
 		}
 	}
 }
