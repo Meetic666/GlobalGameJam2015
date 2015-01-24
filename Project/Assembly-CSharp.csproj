@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\GameManager\GameData.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameManager\LionPack.cs" />
+     <Compile Include="Assets\Scripts\Particles\Particles.cs" />
      <Compile Include="Assets\Scripts\PickUps\EnergyDrink.cs" />
      <Compile Include="Assets\Scripts\Runners\BaseRunner.cs" />
      <Compile Include="Assets\Scripts\Runners\Ex.cs" />
@@ -57,9 +58,7 @@
      <Compile Include="Assets\Scripts\Runners\Player.cs" />
      <Compile Include="Assets\Scripts\Runners\RunnersManager.cs" />
      <Compile Include="Assets\Scripts\TestScript.cs" />
-     <None Include="Assets\Materials\New Text Document.txt" />
      <None Include="Assets\Scripts\New Text Document.txt" />
-     <None Include="Assets\Prefabs\New Text Document.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -25,6 +25,8 @@ public class BaseRunner : MonoBehaviour
 	public GameObject m_Tripped;
 	public GameObject m_Carcass;
 
+	public GameObject m_BloodParticles;
+
 	bool m_SetToCarcass;
 
 	public State CurrentState
@@ -192,7 +194,12 @@ public class BaseRunner : MonoBehaviour
 	{
 		SetToCarcass ();
 
-		// Add sound and stuff and particles
+		if(m_BloodParticles != null)
+		{
+			GameObject particles = (GameObject)Instantiate (m_BloodParticles, transform.position, Quaternion.identity);
+
+			particles.transform.parent = transform;
+		}
 	}
 
 	public void StartEating()

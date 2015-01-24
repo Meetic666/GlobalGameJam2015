@@ -84,6 +84,8 @@ public class Player : People
 		{
 			m_Speed = 0.0f;
 		}
+
+		GameData.Instance.UpdateScore (Time.deltaTime);
 	}
 
 	protected override void HandleCollision (EnergyDrink drink)

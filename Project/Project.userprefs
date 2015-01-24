@@ -1,17 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Runners\Player.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Runners\BaseRunner.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager\GameManager.cs" Line="117" Column="3" />
+      <File FileName="Assets\Scripts\GameManager\GameData.cs" Line="44" Column="1" />
+      <File FileName="Assets\Scripts\GameManager\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Runners\Lion.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Runners\Player.cs" Line="78" Column="56" />
-      <File FileName="Assets\Scripts\GameManager\GameData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Runners\People.cs" Line="63" Column="31" />
-      <File FileName="Assets\Scripts\Runners\BaseRunner.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Runners\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Runners\People.cs" Line="78" Column="37" />
+      <File FileName="Assets\Scripts\Runners\BaseRunner.cs" Line="201" Column="43" />
       <File FileName="Assets\Scripts\Runners\Ex.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Runners\RunnersManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GameManager\LionPack.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PickUps\EnergyDrink.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Particles\Particles.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

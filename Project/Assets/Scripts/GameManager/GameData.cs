@@ -38,6 +38,10 @@ public class GameData
 	
 	float m_DickBoostForTrippingPeople = 0.1f;
 
+	float m_Score;
+
+	int m_DeathToll;
+
 	private GameData()
 	{
 
@@ -46,5 +50,12 @@ public class GameData
 	public void TripPeople()
 	{
 		m_DickPercentage += m_DickBoostForTrippingPeople;
+
+		m_DeathToll++;
+	}
+
+	public void UpdateScore(float deltaScore)
+	{
+		m_Score += deltaScore;
 	}
 }
