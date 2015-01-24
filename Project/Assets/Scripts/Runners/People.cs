@@ -85,21 +85,26 @@ public class People : BaseRunner
 
 	protected void Punch(People otherPeople)
 	{
-		otherPeople.Trip ();
+		if(otherPeople.CurrentState == State.e_Running)
+		{
+			otherPeople.Trip ();
 
-		m_TempParticleHolder = ParticleHelper.Instance.PunchExplosion (new Vector3 ((otherPeople.transform.position.x + transform.position.x) /2, transform.position.y, transform.position.z));
-		m_TempParticleHolder.transform.parent = transform;
-
-
-
-		m_TempParticleHolder = ParticleHelper.Instance.TrippedSwirl (otherPeople.transform.position);
-		m_TempParticleHolder.transform.parent = otherPeople.transform;
+			m_TempParticleHolder = ParticleHelper.Instance.PunchExplosion (new Vector3 ((otherPeople.transform.position.x + transform.position.x) /2, transform.position.y, transform.position.z));
+			m_TempParticleHolder.transform.parent = transform;
 
 
 
-		m_PunchLengthTimer = m_PunchLength;
+			m_TempParticleHolder = ParticleHelper.Instance.TrippedSwirl (otherPeople.transform.position);
+			m_TempParticleHolder.transform.parent = otherPeople.transform;
 
-		m_PunchDirection = (int)Mathf.Sign (otherPeople.transform.position.x - transform.position.x);
+
+
+			m_PunchLengthTimer = m_PunchLength;
+
+			m_PunchDirection = (int)Mathf.Sign (otherPeople.transform.position.x - transform.position.x);
+
+			Camera.main.GetComponent<LionCamera>().StartShaking();
+		}
 	}
 
 	protected override void HandleCollision (BaseRunner otherRunner)
@@ -109,6 +114,20 @@ public class People : BaseRunner
 			Trip();
 			m_TempParticleHolder = ParticleHelper.Instance.TrippedSwirl (transform.position);
 			m_TempParticleHolder.transform.parent = transform;
+		}
+	}
+
+	protected override void DoCarcass ()
+	{
+		if(m_LionPack != null)
+		{
+			foreach(Lion lion in m_LionPack.Lions)
+			{
+				if(transform.position.z < lion.transform.position.z - m_LimitZThreshold)
+				{
+					gameObject.SetActive (false);
+				}
+			}
 		}
 	}
 }

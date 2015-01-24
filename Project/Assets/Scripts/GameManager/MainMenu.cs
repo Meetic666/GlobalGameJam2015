@@ -15,10 +15,36 @@ public class MainMenu : MonoBehaviour
 	{
 		float vertical = Input.GetAxis ("Vertical");
 
-		if(Mathf.Sign (vertical) == - Mathf.Sign (m_PreviousVertical))
+		if(vertical != 0.0f && (m_PreviousVertical == 0.0f || Mathf.Sign (vertical) == - Mathf.Sign (m_PreviousVertical)))
 		{
+			m_SelectedIndex += (int) Mathf.Sign (vertical);
 
+			if(m_SelectedIndex < 0)
+			{
+				m_SelectedIndex = m_TextAreas.Count - 1;
+			}
+			else if(m_SelectedIndex >= m_TextAreas.Count)
+			{
+				m_SelectedIndex = 0;
+			}
 		}
+
+		bool jump = false;
+
+		for(int i = 1; i <= 4; i++)
+		{
+			if(Input.GetButtonDown("Jump" + i))
+			{
+				jump = true;
+			}
+		}
+
+		if(jump)
+		{
+			HandleSelection ();
+		}
+
+		m_PreviousVertical = vertical;
 	}
 	
 	void OnGUI()
@@ -30,18 +56,34 @@ public class MainMenu : MonoBehaviour
 			textArea.y = m_TextAreas[i].y * camera.pixelHeight;
 			textArea.width = m_TextAreas[i].width * camera.pixelWidth;
 			textArea.height = m_TextAreas[i].height * camera.pixelHeight;
-			
+
+			Color previousColor = GUI.contentColor;
+
+			if(i == m_SelectedIndex)
+			{
+				GUI.contentColor = Color.yellow;
+			}
+
 			if(GUI.Button (textArea, m_Texts[i]))
 			{
-				if(m_Texts[i] == "Quit")
-				{
-					Application.Quit();
-				}
-				else if(m_Texts[i] == "Play")
-				{
-					Application.LoadLevel ("PlayerConfirmation");
-				}
+				m_SelectedIndex = i;
+
+				HandleSelection();
 			}
+
+			GUI.contentColor = previousColor;
+		}
+	}
+
+	void HandleSelection()
+	{
+		if(m_Texts[m_SelectedIndex] == "Quit")
+		{
+			Application.Quit();
+		}
+		else if(m_Texts[m_SelectedIndex] == "Play")
+		{
+			Application.LoadLevel ("PlayerConfirmation");
 		}
 	}
 }

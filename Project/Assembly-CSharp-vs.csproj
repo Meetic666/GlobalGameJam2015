@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\GameManager\GameData.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GameManager\LionCamera.cs" />
      <Compile Include="Assets\Scripts\GameManager\LionPack.cs" />
      <Compile Include="Assets\Scripts\GameManager\MainMenu.cs" />
      <Compile Include="Assets\Scripts\GameManager\PlayerConfirmation.cs" />

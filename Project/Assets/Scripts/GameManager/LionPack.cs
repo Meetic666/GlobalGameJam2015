@@ -31,6 +31,8 @@ public class LionPack : MonoBehaviour
 			lion.StartEating();
 
 			lion.SetMeal (meal);
+
+			Camera.main.GetComponent<LionCamera>().StartShaking();
 		}
 	}
 
