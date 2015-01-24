@@ -8,6 +8,7 @@ public class ParticleHelper : MonoBehaviour {
 
 	public ParticleSystem Punch;
 	public ParticleSystem Trip;
+	public ParticleSystem Energy;
 
 
 	// Use this for initialization
@@ -31,6 +32,11 @@ public class ParticleHelper : MonoBehaviour {
 	{
 		return instantiate (Trip, position);
 
+	}
+
+	public ParticleSystem FunEnergy (Vector3 position)
+	{
+		return instantiate (Energy, position);
 	}
 
 

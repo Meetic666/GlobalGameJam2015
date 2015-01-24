@@ -20,6 +20,8 @@ public class Player : People
 
 	public int m_PlayerNumber;
 
+	ParticleSystem m_TempParticleHolder;
+
 	protected override void UpdateVirtual ()
 	{
 		base.UpdateVirtual ();
@@ -125,6 +127,8 @@ public class Player : People
 		if(drink.gameObject.activeSelf)
 		{
 			m_Speed += drink.m_SpeedBoost;
+		m_TempParticleHolder = ParticleHelper.Instance.FunEnergy (transform.position);
+		m_TempParticleHolder.transform.parent = transform;
 
 			drink.gameObject.SetActive(false);
 		}
