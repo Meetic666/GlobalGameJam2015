@@ -7,10 +7,27 @@ public class Ex : People
 
 	protected override void UpdateVirtual ()
 	{
-		if(m_Player != null)
+		float minDistance = Mathf.Infinity;
+		Player playerToUse = null;
+
+		foreach(Player player in m_Players)
+		{
+			if(player.gameObject.activeSelf)
+			{
+				float distance = Vector3.Distance (transform.localPosition, player.transform.localPosition);
+
+				if(distance < minDistance)
+				{
+					playerToUse = player;
+					minDistance = distance;
+				}
+			}
+		}		
+
+		if(playerToUse != null)
 		{
 			Vector3 newPosition = transform.localPosition;
-			newPosition.x = Mathf.Lerp (newPosition.x, m_Player.transform.localPosition.x, m_LateralSpeed * Time.deltaTime);
+			newPosition.x = Mathf.Lerp (newPosition.x, playerToUse.transform.localPosition.x, m_LateralSpeed * Time.deltaTime);
 			transform.localPosition = newPosition;
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class People : BaseRunner 
 {	
@@ -8,7 +9,7 @@ public class People : BaseRunner
 
 	public float m_PunchRadius;
 
-	public People m_Player;
+	public List<Player> m_Players;
 
 	protected bool m_IsJumping;
 
@@ -17,31 +18,35 @@ public class People : BaseRunner
 
 	int m_PunchDirection;
 
-	public float m_LimitZ;
+	public float m_LimitZThreshold;
 	public float m_LimitZSpeedBoost = 20.0f;
+	public LionPack m_LionPack;
 
 	protected override void UpdateVirtual ()
 	{
-		if(m_Player != null && Vector3.Distance (m_Player.transform.position, transform.position) < m_PunchRadius)
-		{			
-			if(m_PunchTimer > 0.0f)
-			{
-				m_PunchTimer -= Time.deltaTime;
-				
-				if(m_PunchTimer <= 0.0f)
+		foreach(Player player in m_Players)
+		{
+			if(player.gameObject.activeSelf && Vector3.Distance (player.transform.position, transform.position) < m_PunchRadius)
+			{			
+				if(m_PunchTimer > 0.0f)
 				{
-					Punch (m_Player);
+					m_PunchTimer -= Time.deltaTime;
+					
+					if(m_PunchTimer <= 0.0f)
+					{
+						Punch (player);
+					}
 				}
-			}
-			else
-			{				
-				m_PunchTimer = m_PunchDelay * (1.0f - GameData.Instance.DickPercentage);
+				else
+				{				
+					m_PunchTimer = m_PunchDelay * (1.0f - GameData.Instance.DickPercentages[player.m_PlayerNumber]);
 
-				if(m_PunchTimer <= 0.0f)
-				{
-					Punch (m_Player);
+					if(m_PunchTimer <= 0.0f)
+					{
+						Punch (player);
+					}
+
 				}
-
 			}
 		}
 
@@ -64,9 +69,15 @@ public class People : BaseRunner
 			}
 		}
 
-		if(transform.position.z < m_LimitZ)
+		if(m_LionPack != null)
 		{
-			m_Speed += m_LimitZSpeedBoost;
+			foreach(Lion lion in m_LionPack.Lions)
+			{
+				if(transform.position.z < lion.transform.position.z + m_LimitZThreshold)
+				{
+					m_Speed += m_LimitZSpeedBoost;
+				}
+			}
 		}
 	}
 

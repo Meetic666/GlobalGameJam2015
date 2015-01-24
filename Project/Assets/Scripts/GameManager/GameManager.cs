@@ -20,9 +20,14 @@ public class GameManager : MonoBehaviour
 	public GameObject m_PeoplePrefab;
 
 	public RunnersManager m_RunnersManager;
-	public Player m_Player;
+	public List<Player> m_Players;
+
+	public LionPack m_LionPack;
 
 	int m_MaxNumberOfObstacles = 5;
+	
+	public float m_DeathTime = 2.0f;
+	float m_DeathTimer;
 
 
 	void Start()
@@ -73,7 +78,34 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		GameData.Instance.Update ();
+		GameData.Instance.Update ();		
+
+		if(m_DeathTimer > 0.0f)
+		{
+			m_DeathTimer -= Time.deltaTime;
+			
+			if(m_DeathTimer <= 0.0f)
+			{
+				Application.LoadLevel("Summary");
+			}
+		}
+		else
+		{
+			bool allPlayersDead = true;
+
+			foreach(Player player in m_Players)
+			{
+				if(player.CurrentState != BaseRunner.State.e_Carcass)
+				{
+					allPlayersDead = false;
+				}
+			}
+
+			if(allPlayersDead)
+			{
+				m_DeathTimer = m_DeathTime;
+			}
+		}
 	}
 
 	void SpawnItem()
@@ -82,22 +114,25 @@ public class GameManager : MonoBehaviour
 
 		Vector3 position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right;
 
-		if(Random.value <= GameData.Instance.DickPercentage)
+		foreach(float dickPercentage in GameData.Instance.DickPercentages)
 		{
-			for(int i = 0; i < m_MaxNumberOfObstacles * GameData.Instance.DickPercentage; i++)
+			if(Random.value <= dickPercentage)
 			{
-				GameObject newObject = (GameObject)Instantiate(m_PeoplePrefab,position, Quaternion.identity);
+				for(int i = 0; i < m_MaxNumberOfObstacles * dickPercentage; i++)
+				{
+					GameObject newObject = (GameObject)Instantiate(m_PeoplePrefab,position, Quaternion.identity);
 
-				newObject.GetComponent<BaseRunner>().SetToCarcass();
+					newObject.GetComponent<BaseRunner>().SetToCarcass();
 
-				newObjects.Add (newObject);
+					newObjects.Add (newObject);
 
-				position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.forward;
+					position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.forward;
+				}
 			}
-		}
-		else
-		{
-			newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
+			else
+			{
+				newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
+			}
 		}
 
 		foreach(GameObject newObject in newObjects)
@@ -113,7 +148,8 @@ public class GameManager : MonoBehaviour
 		Vector3 position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right;
 
 		newObject = (GameObject)Instantiate(m_ExPrefab,position, Quaternion.identity);
-		newObject.GetComponent<People>().m_Player = m_Player;
+		newObject.GetComponent<People>().m_Players = m_Players;
+		newObject.GetComponent<People>().m_LionPack = m_LionPack;
 		
 		newObject.transform.parent = m_RunnersManager.transform;
 	}
@@ -125,7 +161,8 @@ public class GameManager : MonoBehaviour
 		Vector3 position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right;
 		
 		newObject = (GameObject)Instantiate(m_PeoplePrefab,position, Quaternion.identity);
-		newObject.GetComponent<People>().m_Player = m_Player;
+		newObject.GetComponent<People>().m_Players = m_Players;
+		newObject.GetComponent<People>().m_LionPack = m_LionPack;
 		
 		newObject.transform.parent = m_RunnersManager.transform;
 	}

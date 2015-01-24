@@ -35,6 +35,11 @@ public class BaseRunner : MonoBehaviour
 		{
 			return m_CurrentState;
 		}
+
+		protected set
+		{
+			m_CurrentState = value;
+		}
 	}
 
 	public float CurrentSpeed
@@ -54,20 +59,7 @@ public class BaseRunner : MonoBehaviour
 
 			m_Animator = GetComponentInChildren<Animator> ();
 
-			if(m_Normal != null)
-			{
-				m_Normal.SetActive (true);
-			}
-
-			if(m_Tripped != null)
-			{
-				m_Tripped.SetActive (false);
-			}
-
-			if(m_Carcass != null)
-			{
-				m_Carcass.SetActive (false);
-			}
+			SetToRunning();
 		}
 	}
 	
@@ -138,7 +130,7 @@ public class BaseRunner : MonoBehaviour
 		transform.localPosition += transform.forward * m_Speed * Time.deltaTime;
 	}
 
-	void DoTripped()
+	protected virtual void DoTripped()
 	{
 
 	}
@@ -167,6 +159,24 @@ public class BaseRunner : MonoBehaviour
 		if(m_Carcass != null)
 		{
 			m_Carcass.SetActive (true);
+		}
+	}
+
+	public void SetToRunning()
+	{			
+		if(m_Normal != null)
+		{
+			m_Normal.SetActive (true);
+		}
+		
+		if(m_Tripped != null)
+		{
+			m_Tripped.SetActive (false);
+		}
+		
+		if (m_Carcass != null) 
+		{
+			m_Carcass.SetActive (false);
 		}
 	}
 

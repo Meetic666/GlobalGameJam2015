@@ -5,6 +5,14 @@ public class LionPack : MonoBehaviour
 {
 	Lion[] m_Lions;
 
+	public Lion[] Lions
+	{
+		get
+		{
+			return m_Lions;
+		}
+	}
+
 	// Use this for initialization
 	void Start () 
 	{

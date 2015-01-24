@@ -49,6 +49,8 @@
      <Compile Include="Assets\Scripts\GameManager\GameData.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameManager\LionPack.cs" />
+     <Compile Include="Assets\Scripts\GameManager\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\GameManager\PlayerConfirmation.cs" />
      <Compile Include="Assets\Scripts\GameManager\Summary.cs" />
      <Compile Include="Assets\Scripts\Particles\Particles.cs" />
      <Compile Include="Assets\Scripts\PickUps\EnergyDrink.cs" />

@@ -15,7 +15,10 @@ public class Player : People
 	bool m_ResetStartScale;
 	float m_ScaleSpeed;
 
-	public float m_DeathTime = 2.0f;
+	public float m_TrippedTime;
+	float m_TrippedTimer;
+
+	public int m_PlayerNumber;
 
 	protected override void UpdateVirtual ()
 	{
@@ -28,16 +31,21 @@ public class Player : People
 			m_StartScale = transform.localScale;
 
 			m_ScaleSpeed = m_JumpScaleMultiplier / m_JumpTime;
+
+			if(!GameData.Instance.PlayersConfirmed[m_PlayerNumber - 1])
+			{
+				gameObject.SetActive(false);
+			}
 		}
 
 		Vector3 newPosition = transform.position;
-		newPosition.x += Input.GetAxis ("Horizontal") * m_LateralSpeed * Time.deltaTime;
+		newPosition.x += Input.GetAxis ("Horizontal" + m_PlayerNumber) * m_LateralSpeed * Time.deltaTime;
 
 		newPosition.x = Mathf.Clamp (newPosition.x, - m_MaxHorizontalPosition, m_MaxHorizontalPosition);
 
 		transform.position = newPosition;
 
-		if(Input.GetButtonDown("Punch"))
+		if(Input.GetButtonDown("Punch" + m_PlayerNumber))
 		{
 			Collider[] colliders = Physics.OverlapSphere(transform.position, m_PunchRadius);
 
@@ -49,7 +57,7 @@ public class Player : People
 				{
 					Punch(otherPeople);
 
-					GameData.Instance.TripPeople();
+					GameData.Instance.TripPeople(m_PlayerNumber);
 				}
 			}
 		}
@@ -69,7 +77,7 @@ public class Player : People
 		{
 			m_IsJumping = false;
 
-			if(Input.GetButtonDown ("Jump"))
+			if(Input.GetButtonDown ("Jump" + m_PlayerNumber))
 			{
 				m_JumpTimer = m_JumpTime;
 
@@ -87,7 +95,7 @@ public class Player : People
 			m_Speed = 0.0f;
 		}
 
-		GameData.Instance.UpdateScore (Time.deltaTime);
+		GameData.Instance.UpdateScore (Time.deltaTime, m_PlayerNumber);
 	}
 
 	protected override void HandleCollision (EnergyDrink drink)
@@ -100,12 +108,24 @@ public class Player : People
 	protected override void DoCarcass ()
 	{
 		transform.localScale = m_StartScale;
-		
-		m_DeathTime -= Time.deltaTime;
-		
-		if(m_DeathTime <= 0.0f)
+	}
+
+	protected override void DoTripped ()
+	{
+		if(m_TrippedTimer > 0.0f)
 		{
-			Application.LoadLevel("Summary");
+			m_TrippedTimer -= Time.deltaTime;
+
+			if(m_TrippedTimer <= 0.0f)
+			{
+				CurrentState = State.e_Running;
+
+				SetToRunning ();
+			}
+		}
+		else
+		{
+			m_TrippedTimer = m_TrippedTime;
 		}
 	}
 }

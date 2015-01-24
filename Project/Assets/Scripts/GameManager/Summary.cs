@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class DickishnessComment
@@ -12,35 +13,52 @@ public class Summary : MonoBehaviour
 {
 	public DickishnessComment[] m_Comments;
 
-	string m_CommentToUse;
+	List<string> m_CommentToUse = new List<string>(4);
 
-	public Rect m_DickishnessTextAreaPercentages;
+	public List<Rect> m_DickishnessTextAreaPercentages;
 
 	void Start()
 	{
-		string commentUsed = "";
-
-		foreach(DickishnessComment comment in m_Comments)
+		for(int i = 0; i < GameData.Instance.DickPercentages.Count; i++)
 		{
-			if(GameData.Instance.DickPercentage >= comment.m_DickishnessThreshold)
+			string commentUsed = "";
+
+			foreach(DickishnessComment comment in m_Comments)
 			{
-				commentUsed = comment.m_Message;
+				if(GameData.Instance.DickPercentages[i] >= comment.m_DickishnessThreshold)
+				{
+					commentUsed = comment.m_Message;
+				}
+			}
+
+			m_CommentToUse.Add ("You've survived " + GameData.Instance.Scores[i]  + " seconds.\nYou've killed "
+				+ GameData.Instance.DeathTolls[i] + " people.\n" + commentUsed + "\n\n" + (int)(Random.value * 100) + "% of the players killed more people than you.\n"
+					+ (int)(Random.value * 100) + "% of the players survived longer than you.\n");
+		}
+	}
+
+	void Update()
+	{
+		for(int i = 1; i<= 4; i++)
+		{
+			if(Input.GetButtonDown("Jump" + i))
+			{
+				Application.LoadLevel ("MainMenu");
 			}
 		}
-
-		m_CommentToUse = "You've survived " + GameData.Instance.Score  + " seconds.\nYou've killed "
-			+ GameData.Instance.DeathToll + " people.\n" + commentUsed + "\n\n" + (int)(Random.value * 100) + "% of the players killed more people than you.\n"
-				+ (int)(Random.value * 100) + "% of the players survived longer than you.\n";
 	}
 
 	void OnGUI()
 	{
-		Rect textArea = new Rect(0,0,0,0);
-		textArea.x = m_DickishnessTextAreaPercentages.x * camera.pixelWidth;
-		textArea.y = m_DickishnessTextAreaPercentages.y * camera.pixelHeight;
-		textArea.width = m_DickishnessTextAreaPercentages.width * camera.pixelWidth;
-		textArea.height = m_DickishnessTextAreaPercentages.height * camera.pixelHeight;
+		for(int i = 0; i < m_DickishnessTextAreaPercentages.Count; i++)
+		{
+			Rect textArea = new Rect(0,0,0,0);
+			textArea.x = m_DickishnessTextAreaPercentages[i].x * camera.pixelWidth;
+			textArea.y = m_DickishnessTextAreaPercentages[i].y * camera.pixelHeight;
+			textArea.width = m_DickishnessTextAreaPercentages[i].width * camera.pixelWidth;
+			textArea.height = m_DickishnessTextAreaPercentages[i].height * camera.pixelHeight;
 
-		GUI.TextArea (textArea, m_CommentToUse);
+			GUI.TextArea (textArea, m_CommentToUse[i]);
+		}
 	}
 }
