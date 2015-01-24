@@ -122,9 +122,12 @@ public class Player : People
 
 	protected override void HandleCollision (EnergyDrink drink)
 	{
-		m_Speed += drink.m_SpeedBoost;
+		if(drink.gameObject.activeSelf)
+		{
+			m_Speed += drink.m_SpeedBoost;
 
-		Destroy (drink.gameObject);
+			drink.gameObject.SetActive(false);
+		}
 	}
 
 	protected override void DoCarcass ()

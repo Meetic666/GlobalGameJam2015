@@ -133,10 +133,10 @@ public class GameManager : MonoBehaviour
 						position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.forward;
 					}
 				}
-			}
-			else
-			{
-				newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
+				else
+				{
+					newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
+				}
 			}
 
 			index++;
