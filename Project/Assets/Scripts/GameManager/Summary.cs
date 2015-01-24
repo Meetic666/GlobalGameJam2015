@@ -52,13 +52,16 @@ public class Summary : MonoBehaviour
 	{
 		for(int i = 0; i < m_DickishnessTextAreaPercentages.Count; i++)
 		{
-			Rect textArea = new Rect(0,0,0,0);
-			textArea.x = m_DickishnessTextAreaPercentages[i].x * camera.pixelWidth;
-			textArea.y = m_DickishnessTextAreaPercentages[i].y * camera.pixelHeight;
-			textArea.width = m_DickishnessTextAreaPercentages[i].width * camera.pixelWidth;
-			textArea.height = m_DickishnessTextAreaPercentages[i].height * camera.pixelHeight;
+			if(GameData.Instance.PlayersConfirmed[i])
+			{
+				Rect textArea = new Rect(0,0,0,0);
+				textArea.x = m_DickishnessTextAreaPercentages[i].x * camera.pixelWidth;
+				textArea.y = m_DickishnessTextAreaPercentages[i].y * camera.pixelHeight;
+				textArea.width = m_DickishnessTextAreaPercentages[i].width * camera.pixelWidth;
+				textArea.height = m_DickishnessTextAreaPercentages[i].height * camera.pixelHeight;
 
-			GUI.TextArea (textArea, m_CommentToUse[i]);
+				GUI.TextArea (textArea, m_CommentToUse[i]);
+			}
 		}
 	}
 }

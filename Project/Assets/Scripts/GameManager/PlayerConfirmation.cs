@@ -66,16 +66,19 @@ public class PlayerConfirmation : MonoBehaviour
 			textArea.width = m_TextAreas[i].width * camera.pixelWidth;
 			textArea.height = m_TextAreas[i].height * camera.pixelHeight;
 
-			string text = "Press Space or A to join";
+			string inputMethod = (i == 0) ? "Space" : "A";
+			string backMethod = (i==0) ? "Escape" : "B";
+
+			string text = "Press " + inputMethod + " to join";
 
 			if(GameData.Instance.PlayersJoined[i])
 			{
-				text = "Press space or A to go to lobby \nEscape or B to leave game";
+				text = "Press " + inputMethod + " to go to lobby \n" + backMethod + " to leave game";
 			}
 
 			if(GameData.Instance.PlayersConfirmed[i])
 			{
-				text = "Waiting for players \nEscape or B to leave lobby";
+				text = "Waiting for players \n" + backMethod + " to leave lobby";
 			}
 
 			GUI.TextArea (textArea, text);

@@ -6,6 +6,20 @@ public class MainMenu : MonoBehaviour
 {
 	public List<Rect> m_TextAreas;
 	public List<string> m_Texts;
+
+	int m_SelectedIndex = 0;
+
+	float m_PreviousVertical;
+
+	void Update()
+	{
+		float vertical = Input.GetAxis ("Vertical");
+
+		if(Mathf.Sign (vertical) == - Mathf.Sign (m_PreviousVertical))
+		{
+
+		}
+	}
 	
 	void OnGUI()
 	{

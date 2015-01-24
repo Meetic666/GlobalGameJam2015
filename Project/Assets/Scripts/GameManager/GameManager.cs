@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
 
 			foreach(Player player in m_Players)
 			{
-				if(player.CurrentState != BaseRunner.State.e_Carcass)
+				if(player.gameObject.activeSelf && player.CurrentState != BaseRunner.State.e_Carcass)
 				{
 					allPlayersDead = false;
 				}
@@ -114,25 +114,32 @@ public class GameManager : MonoBehaviour
 
 		Vector3 position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right;
 
+		int index = 0;
+
 		foreach(float dickPercentage in GameData.Instance.DickPercentages)
 		{
-			if(Random.value <= dickPercentage)
+			if(m_Players[index].gameObject.activeSelf && m_Players[index].CurrentState != BaseRunner.State.e_Carcass)
 			{
-				for(int i = 0; i < m_MaxNumberOfObstacles * dickPercentage; i++)
+				if(Random.value <= dickPercentage)
 				{
-					GameObject newObject = (GameObject)Instantiate(m_PeoplePrefab,position, Quaternion.identity);
+					for(int i = 0; i < m_MaxNumberOfObstacles * dickPercentage; i++)
+					{
+						GameObject newObject = (GameObject)Instantiate(m_PeoplePrefab,position, Quaternion.identity);
 
-					newObject.GetComponent<BaseRunner>().SetToCarcass();
+						newObject.GetComponent<BaseRunner>().SetToCarcass();
 
-					newObjects.Add (newObject);
+						newObjects.Add (newObject);
 
-					position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.forward;
+						position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.forward;
+					}
 				}
 			}
 			else
 			{
 				newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
 			}
+
+			index++;
 		}
 
 		foreach(GameObject newObject in newObjects)
