@@ -16,7 +16,7 @@ public class RunnersManager : MonoBehaviour
 
 		foreach(Player player in m_Players)
 		{
-			if(player.CurrentSpeed > currentSpeed)
+			if(player.gameObject.activeSelf && player.CurrentSpeed > currentSpeed)
 			{
 				currentSpeed = player.CurrentSpeed;
 			}

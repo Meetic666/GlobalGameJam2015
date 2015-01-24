@@ -50,7 +50,7 @@ public class PlayerConfirmation : MonoBehaviour
 		
 		if(GameData.Instance.NumberOfPlayersJoined > 0 && GameData.Instance.NumberOfPlayersJoined == GameData.Instance.NumberOfPlayersConfirmed)
 		{
-			string levelToLoad = (GameData.Instance.NumberOfPlayersConfirmed == 1) ? "SinglePlayer" : "MultiPlayer";
+			string levelToLoad = "MultiPlayer";
 
 			Application.LoadLevel (levelToLoad);
 		}

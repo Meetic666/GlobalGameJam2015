@@ -36,6 +36,10 @@ public class Player : People
 			{
 				gameObject.SetActive(false);
 			}
+			else if(GameData.Instance.NumberOfPlayersConfirmed == 1)
+			{
+				m_TrippedTime = 600.0f;
+			}
 		}
 
 		Vector3 newPosition = transform.position;
