@@ -93,7 +93,7 @@ public class BaseRunner : MonoBehaviour
 
 	}
 
-	void CheckForCollisions()
+	protected void CheckForCollisions()
 	{
 		Collider[] colliders = Physics.OverlapSphere (transform.position, m_CollisionDetectionRadius);
 

@@ -64,6 +64,8 @@ public class Lion : BaseRunner
 			newPosition.z = m_StartZ;
 			
 			transform.position = newPosition;
+
+			CheckForCollisions();
 		}
 	}
 

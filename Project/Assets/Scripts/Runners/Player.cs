@@ -20,8 +20,6 @@ public class Player : People
 
 	public int m_PlayerNumber;
 
-	ParticleSystem m_TempParticleHolder;
-
 	protected override void UpdateVirtual ()
 	{
 		base.UpdateVirtual ();
@@ -105,7 +103,27 @@ public class Player : People
 
 		if(Input.GetButtonDown ("Boost"+m_PlayerNumber))
 		{
-			m_Speed += m_LimitZSpeedBoost;
+			bool nearLions = false;
+
+			if(m_LionPack != null)
+			{
+				foreach(Lion lion in m_LionPack.Lions)
+				{
+					if(transform.position.z < lion.transform.position.z + m_LimitZThreshold)
+					{
+						nearLions = true;
+					}
+				}
+			}
+
+			float actualSpeedBoost = m_LimitZSpeedBoost;
+
+			if(nearLions)
+			{
+				actualSpeedBoost *= 3.0f;
+			}
+
+			m_Speed += actualSpeedBoost;
 
 			GameData.Instance.AddButtonMash(m_PlayerNumber);
 		}
@@ -116,8 +134,9 @@ public class Player : People
 		if(drink.gameObject.activeSelf)
 		{
 			m_Speed += drink.m_SpeedBoost;
-		m_TempParticleHolder = ParticleHelper.Instance.FunEnergy (transform.position);
-		m_TempParticleHolder.transform.parent = transform;
+
+			ParticleSystem tempParticleHolder = ParticleHelper.Instance.FunEnergy (transform.position);
+			tempParticleHolder.transform.parent = transform;
 
 			drink.gameObject.SetActive(false);
 		}

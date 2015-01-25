@@ -184,4 +184,15 @@ public class GameData
 	{
 		m_NumberOfButtonMashes [playerNumber - 1]++;
 	}
+
+	public void Reset()
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			m_DickPercentages[i] = 0.0f;
+			m_Scores[i] = 0.0f;
+			m_DeathTolls[i] = 0;
+			m_NumberOfButtonMashes[i] = 0;
+		}
+	}
 }

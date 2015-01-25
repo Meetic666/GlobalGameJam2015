@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
 
 		foreach(float dickPercentage in GameData.Instance.DickPercentages)
 		{
-			if(m_Players[index].gameObject.activeSelf && m_Players[index].CurrentState != BaseRunner.State.e_Carcass)
+			if(index < m_Players.Count && m_Players[index].gameObject.activeSelf && m_Players[index].CurrentState != BaseRunner.State.e_Carcass)
 			{
 				if(Random.value <= dickPercentage)
 				{
@@ -129,14 +129,17 @@ public class GameManager : MonoBehaviour
 						newObject.GetComponent<BaseRunner>().SetToCarcass();
 
 						newObjects.Add (newObject);
-
-						position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.forward;
 					}
 				}
 				else
 				{
-					newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
+					if(index == 0)
+					{
+						newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
+					}
 				}
+
+				position = transform.position + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.right + Random.Range (-1.0f, 1.0f) * m_MaxHorizontalPosition * transform.forward;
 			}
 
 			index++;
