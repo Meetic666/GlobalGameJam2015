@@ -116,6 +116,8 @@ public class GameManager : MonoBehaviour
 
 		int index = 0;
 
+		bool hasAlreadyMadeDrink = false;
+
 		foreach(float dickPercentage in GameData.Instance.DickPercentages)
 		{
 			if(index < m_Players.Count && m_Players[index].gameObject.activeSelf && m_Players[index].CurrentState != BaseRunner.State.e_Carcass)
@@ -133,9 +135,11 @@ public class GameManager : MonoBehaviour
 				}
 				else
 				{
-					if(index == 0)
+					if(!hasAlreadyMadeDrink)
 					{
 						newObjects.Add ((GameObject)Instantiate(m_ItemPrefab,position, Quaternion.identity));
+
+						hasAlreadyMadeDrink = true;
 					}
 				}
 
